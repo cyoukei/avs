@@ -1,0 +1,168 @@
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body
+{
+	background-color: #eee;
+	margin-bottom: 70px;
+}
+
+.footer {
+	padding: 10px 0;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    background-color: #ddd;
+    text-align: center;
+}
+
+.relative
+{
+	position: relative;
+}
+
+.viewcontent
+{
+	background: #fff;
+}
+
+.topBanner, .topBanner .dropdown-menu
+{
+	background-color: #769367;
+	
+}
+
+.topBanner.navbar-default .navbar-nav .open .dropdown-menu>li>a:HOVER
+{
+	color:#333;
+}
+
+.navbar-default .navbar-brand,.navbar-default .navbar-nav>li>a, .navbar-default .navbar-nav .open .dropdown-menu>li>a
+{
+	color:#ddd;
+}
+
+.navbar-default .navbar-brand:HOVER, .navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-nav>li>a:focus
+{
+	color:#fff;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus
+{
+	background:#aaa;
+}
+
+.navbar-default .navbar-nav>.active>a, .navbar-default .navbar-nav>.active>a:hover, .navbar-default .navbar-nav>.active>a:focus
+{
+	color:#333;
+}
+
+.navbar-default .navbar-toggle .icon-bar
+{
+	background-color:#ddd;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover, .nav-pills>li.active>a:focus
+{
+	background-color: #2e7b33;
+}
+
+.bs-callout {
+    padding: 10px 20px;
+    margin: 20px 0;
+    border: 1px solid #eee;
+    border-left-width: 5px;
+    border-radius: 3px;
+}
+.bs-callout h4 {
+    margin-top: 0;
+    margin-bottom: 5px;
+}
+.bs-callout p:last-child {
+    margin-bottom: 0;
+}
+.bs-callout code {
+    border-radius: 3px;
+}
+.bs-callout+.bs-callout {
+    margin-top: -5px;
+}
+.bs-callout-default {
+    border-left-color: #777;
+}
+.bs-callout-default h4 {
+    color: #777;
+}
+.bs-callout-primary {
+    border-left-color: #428bca;
+}
+.bs-callout-primary h4 {
+    color: #428bca;
+}
+.bs-callout-success {
+    border-left-color: #5cb85c;
+}
+.bs-callout-success h4 {
+    color: #5cb85c;
+}
+.bs-callout-danger {
+    border-left-color: #d9534f;
+}
+.bs-callout-danger h4 {
+    color: #d9534f;
+}
+.bs-callout-warning {
+    border-left-color: #f0ad4e;
+}
+.bs-callout-warning h4 {
+    color: #f0ad4e;
+}
+.bs-callout-info {
+    border-left-color: #5bc0de;
+}
+.bs-callout-info h4 {
+    color: #5bc0de;
+}
+
+.red-star:AFTER
+{
+	color: red;
+	content: ' *';
+}
+
+.label
+{
+	font-size: 100%;
+}
+
+.navbar
+{
+	margin-bottom: 0;
+}
+
+.media-left img
+{
+	max-width: 64px;
+}
+
+.top-header
+{
+	text-align: center;
+	color: #48643A;
+}
+
+.top-header hr
+{
+	border-bottom: 1px dashed #666;
+}
+
+.text-single-line {
+	display: block;
+	word-break: keep-all; /* 不换行 */
+	white-space: nowrap; /* 不换行 */
+	overflow: hidden; /* 内容超出宽度时隐藏超出部分的内容 */
+	text-overflow: ellipsis;
+	/* 当对象内文本溢出时显示省略标记(...) ；需与overflow:hidden;一起使用。*/
+}

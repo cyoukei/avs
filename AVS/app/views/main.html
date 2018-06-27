@@ -1,0 +1,14 @@
+#{extends 'base.html' /}
+    <nav class="navbar navbar-default topBanner" role="navigation">
+
+		<ul class="nav nav-pills" style="text-align: center;">
+			<li role="presentation" class="disabled">查看方式:</li>
+			<li role="presentation" class="${tabIndex == 0 ? 'active' : ''}"><a href="@{Application.folder}">文件夹</a></li>
+			<li role="presentation" class="${tabIndex == 1 ? 'active' : ''}"><a href="@{Application.date}">日期</a></li>
+			<li role="presentation" class="${tabIndex == 2 ? 'active' : ''}"><a href="@{Application.name}">名称</a></li>
+		</ul>
+	</nav>
+	<div class="container">
+		#{doLayout /}
+	</div>
+        

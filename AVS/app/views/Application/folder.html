@@ -1,0 +1,44 @@
+#{extends 'main.html' /}
+#{set title:'羞羞视频管理' /}
+#{set tabIndex:0 /}
+	<div class="row">
+		<ol class="breadcrumb">
+		  <li><a href="@{Application.folder()}">Home</a></li>
+		  #{list parents, as:'item'}
+		  <li><a href="@{Application.folder(item.id)}">${item.name ?: 'Untitled'}</a></li>
+		  #{/list}
+		</ol>
+	</div>
+	<div class="row">
+	#{list folder.subFolders, as:'item'}
+	<div class="col-sm-3 col-xs-6 " style="padding: 4px;" >
+		<div class="thumbnail album">
+		<a class="album-left" href="@{Application.folder(item.id)}">
+			<div class="ratio" style="background-image:url('/public/images/default_img.png')">
+				
+			</div>
+		</a>
+		
+		<div class="text-center" style="position: relative;">
+			<span class=" text-single-line">${item.name ?: 'Untitled'}</span>
+		</div>
+		</div>
+	</div>
+	#{/list}
+	
+	#{list folder.filers, as:'item'}
+	<div class="col-sm-3 col-xs-6 " style="padding: 4px;" >
+		<div class="thumbnail album">
+		<a class="album-left" href="@{Application.detail(item.id)}" title="${item.name}">
+			<div class="ratio" style="background-image:url('@{Application.image(item.id)}')">
+				
+			</div>
+		</a>
+		
+		<div class="text-center" style="position: relative;">
+			<span class=" text-single-line">${item.name}</span>
+		</div>
+		</div>
+	</div>
+	#{/list}
+	</div>

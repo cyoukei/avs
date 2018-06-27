@@ -1,0 +1,30 @@
+#{extends 'base.html' /}
+#{set title:'视频详情' /}
+
+#{set 'moreStyles'}
+<link href="@{'/public/third/video6.6.2.js/css/video-js.min.css'}" rel="stylesheet">
+#{/set}
+<div class="container">
+	<div class="row">
+		<ol class="breadcrumb">
+		  <li><a href="@{Application.folder()}">Home</a></li>
+		  #{list parents, as:'item'}
+		  <li><a href="@{Application.folder(item.id)}">${item.name ?: 'Untitled'}</a></li>
+		  #{/list}
+		</ol>
+	</div>
+	<div class="row">
+		<div class="col-sm-8 col-xs-12 " style="padding: 4px;" >
+			<h3>${filer.name}</h3>
+			<video id="my-video" class="video-js" controls preload="auto" width="100%"
+			  poster="m.png" data-setup="{}">
+				<source src="${filer.videoUrl}" type="video/mp4">
+				<p class="vjs-no-js">
+				  To view this video please enable JavaScript, and consider upgrading to a web browser that
+				  <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+				</p>
+		  </video>
+		</div>
+	</div>
+</div>
+	

@@ -1,0 +1,78 @@
+body
+{
+	font-size: 12px;
+}
+.btn
+{
+	font-size: 12px;
+}
+
+.dropdown-menu
+{
+	font-size:12px;
+}
+
+.footer
+{
+	padding: 4px 0;
+}
+
+.form-control
+{
+	font-size:12px;
+	height:30px;
+	padding: 4px 8px;
+}
+
+.form-group
+{
+	margin-bottom:8px;
+}
+
+.img-thumbnail
+{
+	padding: 2px;
+}
+.modal-header, .modal-body, .modal-footer
+{
+	padding: 6px;
+}
+.navbar
+{
+	min-height: 32px;
+}
+
+.navbar-toggle
+{
+	padding: 4px;
+	margin: 8px;
+}
+.navbar-toggle .icon-bar
+{
+	width: 16px;
+}
+.navbar-nav>li>a
+{
+	line-height: 16px;
+	padding-top: 8px;
+	padding-bottom: 8px;
+}
+
+.navbar-brand
+{
+	font-size: 14px;
+	line-height: 16px;
+	padding: 8px;
+	height: 32px;
+}
+.well
+{
+	padding:10px;
+}
+@media (min-width: 768px)
+{
+	.modal-dialog
+	{
+		width: 450px;
+	}
+}
