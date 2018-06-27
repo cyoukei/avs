@@ -1,0 +1,11 @@
+#{modal title:_title, id:_id}
+<form action="${_action}" class="form-horizontal" role="form" method="post" name="${_id}Frm">
+<div class="modal-body">
+	#{doBody /}
+</div>
+<div class="modal-footer">
+	<button type="submit" class="btn btn-${_style?:'primary'}">${_okLabel?:'保存'}</button>
+	<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+</div>
+</form>
+#{/modal}

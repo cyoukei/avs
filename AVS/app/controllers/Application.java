@@ -17,6 +17,13 @@ public class Application extends Controller {
         render();
     }
     
+    @Before
+	static void initExtraTabs()
+	{
+    	List<Tag> tags = Tag.all().fetch();
+    	renderArgs.put("tags", tags);
+	}
+    
     public static void build() {
     	new BuildCacheJob().now();
     	
@@ -70,6 +77,11 @@ public class Application extends Controller {
     	render();
     }
     
+    public static void tag()
+    {
+    	render();
+    }
+    
     static String nginx = Play.configuration.getProperty("nginx");
     public static void detail(Long id)
     {
@@ -92,7 +104,66 @@ public class Application extends Controller {
             	}
     		}
     	}
+    	
+    	
     	render(filer, parents);
+    }
+    
+    public static void addTag(Long id, String tagRadios, String newTags)
+    {
+    	
+    	Tag tag;
+    	if("custom".equals(tagRadios))
+    	{
+    		if(StringUtils.isBlank(newTags))
+    		{
+    			detail(id);
+    			return;
+    		}
+    		
+    		newTags = newTags.trim();
+    		
+    		tag = Tag.find("name = ?", newTags).first();
+    		if(tag == null)
+    		{
+    			tag = new Tag();
+    			tag.name = newTags;
+    			tag.save();
+    		}
+    	}else
+    	{
+    		tag = Tag.findById(Long.valueOf(tagRadios));
+    	}
+    	
+    	if(tag == null)
+		{
+			detail(id);
+			return;
+		}
+    	
+    	
+    	Filer filer = Filer.findById(id);
+    	String tagStr = filer.tags;
+    	if(StringUtils.isBlank(tagStr))
+    	{
+    		filer.tags = tag.name;
+    	}else
+    	{
+    		String[] tags = filer.tags.split(",");
+    		for (String string : tags) {
+				if(tag.name.equals(string))
+				{
+					detail(id);
+					return;
+				}
+			}
+    		
+    		filer.tags += "," + tag.name;
+    	}
+    	
+    	filer.save();
+    	
+    	detail(id);
     }
     
     

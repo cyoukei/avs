@@ -10,7 +10,7 @@
 		<div class="thumbnail album">
 		<a class="album-left" href="@{Application.detail(item.id)}" title="${item.name}">
 			<div class="ratio" style="background-image:url('@{Application.image(item.id)}')">
-				<b class="pull-right">${item.lastModified}</b>
+				<b class="pull-right">#{date data:item.lastModified /}</b>
 			</div>
 		</a>
 		

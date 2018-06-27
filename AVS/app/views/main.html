@@ -6,6 +6,9 @@
 			<li role="presentation" class="${tabIndex == 0 ? 'active' : ''}"><a href="@{Application.folder}">文件夹</a></li>
 			<li role="presentation" class="${tabIndex == 1 ? 'active' : ''}"><a href="@{Application.date}">日期</a></li>
 			<li role="presentation" class="${tabIndex == 2 ? 'active' : ''}"><a href="@{Application.name}">名称</a></li>
+			#{list tags , as:'c'}
+			<li role="presentation" class="${selectTagId == c.id ? 'active' : ''}"><a href="@{Application.tag}">${c.name}</a></li>
+			#{/list}
 		</ul>
 	</nav>
 	<div class="container">

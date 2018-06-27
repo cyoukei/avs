@@ -1,0 +1,74 @@
+#{append 'styles'}
+<style>
+
+#selectTagsPanel{
+	display: inline-block;
+}
+.selectedItem
+{
+	padding-right: 10px;
+}
+</style>
+#{/append}
+
+#{append 'scripts'}
+<script type="text/javascript">
+$(function(){
+	$('.author_tree').on('nodeSelected', function(event, node) {
+		
+		$('#addTagsModal').modal('hide');
+		
+		if($('#selectTagsPanel input[value="' + node.id + '"]').length)
+		{
+			alert("'" + node.label + "'已经在作者列表中");
+			return;
+		}
+		
+		var removebt = $('<button type="button" class="close" onclick="$(this).parent().remove();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
+		
+		var input = $('<input type="hidden" name="authorIds" />').val(node.id);
+		var inside = $('<span class="selectedItem"></span>').text(node.label);
+		var item = $('<span class="btn btn-default"></span>').append(inside).append(removebt).append(input);
+		
+		
+		$('#selectTagsPanel').append(item);
+	});
+	
+});
+</script>
+#{/append}
+
+<div id="selectTagsPanel">
+	#{list _tags , as:'c'}
+	<span class="btn btn-default">
+		<span class="selectedItem">${c}</span>
+		<button type="button" class="close" onclick="$(this).parent().remove();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+	</span>
+	#{/list}
+</div>
+<button type="button" class="btn btn-default" data-toggle="modal" data-target="#addTagsModal">
+	<span class="glyphicon glyphicon-plus"></span> 添加TAG
+</button>
+#{modalAction id:'addTagsModal', title:'选择TAG', action:play.mvc.Router.reverse("Application.addTag").url}
+	
+		<input type="hidden" name="id" value="${_id}" />
+		#{list _all , as:'c'}
+		<div class="form-group">
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="tagRadios" value="${c.id}">
+			   ${c.name}
+			  </label>
+			</div>
+		</div>
+		#{/list}
+		<div class="form-group">
+			<div class="radio">
+			  <label>
+			    <input type="radio" name="tagRadios" value="custom">
+			    <input type="text" name="newTags" placeholder="自定义" />
+			  </label>
+			</div>
+		</div>
+	
+#{/modalAction}
