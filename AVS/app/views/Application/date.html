@@ -1,12 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'羞羞视频管理' /}
-#{set tabIndex:1 /}
 
 	<div class="row">
 	
 	
 	#{list filers, as:'item'}
-	<div class="col-sm-3 col-xs-6 " style="padding: 4px;" >
+	<div class="col-sm-2 col-xs-4 " style="padding: 4px;" >
 		<div class="thumbnail album">
 		<a class="album-left" href="@{Application.detail(item.id)}" title="${item.name}">
 			<div class="ratio" style="background-image:url('@{Application.image(item.id)}')">

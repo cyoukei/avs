@@ -46,7 +46,7 @@ public class BuildCacheJob extends Job {
 		if(!f.exists())
 			return;
 		
-		String newUri = uri + "/" + URLEncoder.encode(f.getName(), "utf-8");
+		String newUri = uri + "/" + URLEncoder.encode(f.getName(), "utf-8").replaceAll("\\+", "%20");
 		
 		
 		Folder folder = Folder.find("uri = ?", newUri).first();
@@ -76,7 +76,7 @@ public class BuildCacheJob extends Job {
 				String ext = getExtention(file).toLowerCase().trim();
 				if(extentions.indexOf(ext) != -1)
 				{
-					String fileUri =  folder.uri + "/" + URLEncoder.encode(file.getName(), "utf-8");
+					String fileUri =  folder.uri + "/" + URLEncoder.encode(file.getName(), "utf-8").replaceAll("\\+", "%20");
 					Filer filer = Filer.find("uri = ?", fileUri).first();
 					if(filer == null)
 					{

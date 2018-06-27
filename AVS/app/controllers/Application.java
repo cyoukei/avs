@@ -56,7 +56,7 @@ public class Application extends Controller {
     	render(folder, parents);
     }
     
-    public static void date(Integer pageNo)
+    public static void date(Integer pageNo, String name)
     {
     	if(pageNo == null)
 		{
@@ -65,21 +65,37 @@ public class Application extends Controller {
     	
     	Page page = new Page();
 		page.pageNo = pageNo;
-		page.totalCount = Filer.count();
+		page.totalCount = Filer.count("name like ? ", "%" + name + "%");
 		
-		List<Filer> filers = Filer.find("order by lastModified desc").fetch(page.pageNo, page.pageSize);
+		if(name == null) name = "";
+		
+		List<Filer> filers = Filer.find("name like ? order by lastModified desc", "%" + name + "%").fetch(page.pageNo, page.pageSize);
     	
-    	render(filers, page);
+		Integer tabIndex = 1;
+		
+    	render(filers, page, tabIndex, name);
     }
     
-    public static void name()
+    public static void tag(String name, Integer pageNo)
     {
-    	render();
-    }
-    
-    public static void tag()
-    {
-    	render();
+    	
+    	if(pageNo == null)
+		{
+			pageNo = 1;
+		}
+    	
+    	Page page = new Page();
+		page.pageNo = pageNo;
+		
+		
+		page.totalCount = Filer.count("tags like ?", "%" + name + "%");
+		
+		List<Filer> filers = Filer.find("tags like ? order by lastModified desc", "%" + name + "%").fetch(page.pageNo, page.pageSize);
+    	
+		Tag selected = Tag.find("name = ?", name).first();
+		Long selectTagId = selected.id;
+		
+    	render(filers, page, selectTagId);
     }
     
     static String nginx = Play.configuration.getProperty("nginx");
@@ -103,10 +119,38 @@ public class Application extends Controller {
             		f = parents.get(0);
             	}
     		}
+    		
+    		if(StringUtils.isBlank(filer.tags))
+    			filer.tags = null;
     	}
     	
     	
     	render(filer, parents);
+    }
+    
+    public static void removeTag(Long id, String tag)
+    {
+    	Filer filer = Filer.findById(id);
+    	if(filer != null)
+    	{
+    		String tagStr = filer.tags;
+        	if(!StringUtils.isBlank(tagStr))
+        	{
+        		String[] tags = filer.tags.split(",");
+        		List<String> newTags = new ArrayList<>();
+        		for (String string : tags) {
+    				if(!tag.equals(string))
+    				{
+    					newTags.add(string);
+    				}
+    			}
+        		
+        		filer.tags = StringUtils.join(newTags, ",");
+        		filer.save();
+        	}
+    	}
+    	
+    	renderText("ok");
     }
     
     public static void addTag(Long id, String tagRadios, String newTags)

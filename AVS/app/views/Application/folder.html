@@ -11,7 +11,7 @@
 	</div>
 	<div class="row">
 	#{list folder.subFolders, as:'item'}
-	<div class="col-sm-3 col-xs-6 " style="padding: 4px;" >
+	<div class="col-sm-2 col-xs-4" style="padding: 4px;" >
 		<div class="thumbnail album">
 		<a class="album-left" href="@{Application.folder(item.id)}">
 			<div class="ratio" style="background-image:url('/public/images/default_img.png')">
@@ -27,7 +27,7 @@
 	#{/list}
 	
 	#{list folder.filers, as:'item'}
-	<div class="col-sm-3 col-xs-6 " style="padding: 4px;" >
+	<div class="col-sm-2 col-xs-4" style="padding: 4px;" >
 		<div class="thumbnail album">
 		<a class="album-left" href="@{Application.detail(item.id)}" title="${item.name}">
 			<div class="ratio" style="background-image:url('@{Application.image(item.id)}')">

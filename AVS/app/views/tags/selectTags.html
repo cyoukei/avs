@@ -13,28 +13,12 @@
 
 #{append 'scripts'}
 <script type="text/javascript">
-$(function(){
-	$('.author_tree').on('nodeSelected', function(event, node) {
-		
-		$('#addTagsModal').modal('hide');
-		
-		if($('#selectTagsPanel input[value="' + node.id + '"]').length)
-		{
-			alert("'" + node.label + "'已经在作者列表中");
-			return;
-		}
-		
-		var removebt = $('<button type="button" class="close" onclick="$(this).parent().remove();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>');
-		
-		var input = $('<input type="hidden" name="authorIds" />').val(node.id);
-		var inside = $('<span class="selectedItem"></span>').text(node.label);
-		var item = $('<span class="btn btn-default"></span>').append(inside).append(removebt).append(input);
-		
-		
-		$('#selectTagsPanel').append(item);
-	});
+function removeTag(id, tag)
+{
 	
-});
+	console.log(">>>" + id + "." + tag);
+	$.get('@{Application.removeTag()}' + '?id=' + id + '&tag=' + tag, function(data){});
+}
 </script>
 #{/append}
 
@@ -42,7 +26,7 @@ $(function(){
 	#{list _tags , as:'c'}
 	<span class="btn btn-default">
 		<span class="selectedItem">${c}</span>
-		<button type="button" class="close" onclick="$(this).parent().remove();"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+		<button type="button" data-tag="${c}" class="close" onclick="$(this).parent().remove();removeTag(${_id}, $(this).attr('data-tag'))"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 	</span>
 	#{/list}
 </div>

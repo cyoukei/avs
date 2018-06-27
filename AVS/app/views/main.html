@@ -1,14 +1,29 @@
 #{extends 'base.html' /}
+#{append "scripts"}
+<script type="text/javascript">
+$(function(){
+	$('#topSearch').bind('keypress',function(event){
+		if(event.keyCode == "13")
+		{
+			$("#topSearchFrm").submit();
+		}
+	});
+});
+</script>
+#{/append}
     <nav class="navbar navbar-default topBanner" role="navigation">
 
 		<ul class="nav nav-pills" style="text-align: center;">
 			<li role="presentation" class="disabled">查看方式:</li>
 			<li role="presentation" class="${tabIndex == 0 ? 'active' : ''}"><a href="@{Application.folder}">文件夹</a></li>
 			<li role="presentation" class="${tabIndex == 1 ? 'active' : ''}"><a href="@{Application.date}">日期</a></li>
-			<li role="presentation" class="${tabIndex == 2 ? 'active' : ''}"><a href="@{Application.name}">名称</a></li>
 			#{list tags , as:'c'}
-			<li role="presentation" class="${selectTagId == c.id ? 'active' : ''}"><a href="@{Application.tag}">${c.name}</a></li>
+			<li role="presentation" class="${selectTagId == c.id ? 'active' : ''}"><a href="@{Application.tag(c.name)}">${c.name}</a></li>
 			#{/list}
+			<form class="form-inline" style="display: inline-block;" action="@{Application.date}" method="get" id="topSearchFrm">
+				<input type="text" name="name" id="topSearch" placeholder="搜索" value="${name}" />
+			</form>
+			
 		</ul>
 	</nav>
 	<div class="container">
