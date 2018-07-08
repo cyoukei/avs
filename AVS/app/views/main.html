@@ -17,8 +17,11 @@ $(function(){
 			<li role="presentation" class="disabled">查看方式:</li>
 			<li role="presentation" class="${tabIndex == 0 ? 'active' : ''}"><a href="@{Application.folder}">文件夹</a></li>
 			<li role="presentation" class="${tabIndex == 1 ? 'active' : ''}"><a href="@{Application.date}">日期</a></li>
+			<li role="presentation" class="disabled">标签:</li>
 			#{list tags , as:'c'}
-			<li role="presentation" class="${selectTagId == c.id ? 'active' : ''}"><a href="@{Application.tag(c.name)}">${c.name}</a></li>
+			<li role="presentation" class="btn-xs ${selectTagId == c.id ? 'active' : ''}">
+				<a style="padding: 2px;" href="@{Application.tag(c.name)}">${c.name}</a>
+			</li>
 			#{/list}
 			<form class="form-inline" style="display: inline-block;" action="@{Application.date}" method="get" id="topSearchFrm">
 				<input type="text" name="name" id="topSearch" placeholder="搜索" value="${name}" />

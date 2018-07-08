@@ -63,11 +63,11 @@ public class Application extends Controller {
 			pageNo = 1;
 		}
     	
+    	if(name == null) name = "";
+    	
     	Page page = new Page();
 		page.pageNo = pageNo;
 		page.totalCount = Filer.count("name like ? ", "%" + name + "%");
-		
-		if(name == null) name = "";
 		
 		List<Filer> filers = Filer.find("name like ? order by lastModified desc", "%" + name + "%").fetch(page.pageNo, page.pageSize);
     	
