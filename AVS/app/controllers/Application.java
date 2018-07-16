@@ -9,6 +9,7 @@ import java.util.*;
 import org.apache.commons.lang.StringUtils;
 
 import job.BuildCacheJob;
+import job.VideoConvertJob;
 import models.*;
 
 public class Application extends Controller {
@@ -28,6 +29,12 @@ public class Application extends Controller {
     	new BuildCacheJob().now();
     	
         renderText("Build Started.");
+    }
+    
+    public static void convert() {
+    	new VideoConvertJob().now();
+    	
+        renderText("Convert Started.");
     }
     
     public static void folder(Long id)

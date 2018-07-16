@@ -100,6 +100,12 @@ public class BuildCacheJob extends Job {
 	}
 	
 	private void checkToGenThumbnail(File file) {
+		File toDel = new File(file.getParent(), file.getName() + ".png");
+		if(toDel.exists())
+		{
+			toDel.delete();
+		}
+		
 		String out = file.getName() + ".jpg";
 		if(new File(file.getParent(), out).exists())
 		{

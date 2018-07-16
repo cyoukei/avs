@@ -36,23 +36,28 @@ function removeTag(id, tag)
 #{modalAction id:'addTagsModal', title:'选择TAG', action:play.mvc.Router.reverse("Application.addTag").url}
 	
 		<input type="hidden" name="id" value="${_id}" />
-		#{list _all , as:'c'}
-		<div class="form-group">
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="tagRadios" value="${c.id}">
-			   ${c.name}
-			  </label>
+		<div class="row">
+			#{list _all , as:'c'}
+			<div class="col-sm-3">
+			<div>
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="tagRadios" value="${c.id}">
+				   ${c.name}
+				  </label>
+				</div>
+			</div>
+			</div>
+			#{/list}
+		</div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="radio">
+				  <label>
+				    <input type="radio" name="tagRadios" value="custom">
+				    <input type="text" name="newTags" placeholder="自定义" />
+				  </label>
+				</div>
 			</div>
 		</div>
-		#{/list}
-		<div class="form-group">
-			<div class="radio">
-			  <label>
-			    <input type="radio" name="tagRadios" value="custom">
-			    <input type="text" name="newTags" placeholder="自定义" />
-			  </label>
-			</div>
-		</div>
-	
 #{/modalAction}

@@ -15,33 +15,20 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-8 col-xs-12 col-sm-offset-2" style="padding: 4px;" >
-			<h3>${filer.name}</h3>
+			<h3><a href="${filer.videoUrl}">${filer.name}</a></h3>
 			#{if filer.type == '1'}
-			<object classid="clsid:CFCDAA03-8BE4-11cf-B84B-0020AFBBCCFA"
-				height="515" id="RAOCX" name="rmplay" width="700">
-				<param name="SRC" value="http://www.maimic.com/realplayer/123.rmvb" />
-				<param name="_ExtentX" value="9313" />
-				<param name="_ExtentY" value="7620" />
-				<param name="AUTOSTART" value="1" />
-				<param name="SHUFFLE" value="0" />
-				<param name="PREFETCH" value="0" />
-				<param name="NOLABELS" value="0" />
-				<param name="CONTROLS" value="ImageWindow,ControlPanel" />
-				<param name="CONSOLE" value="Clip2" />
-				<param name="LOOP" value="0" />
-				<param name="NUMLOOP" value="0" />
-				<param name="CENTER" value="0" />
-				<param name="MAINTAINASPECT" value="0" />
-				<param name="BACKGROUNDCOLOR" value="#000000" />
-				<embed src="${filer.videoUrl}"
-					type="audio/x-pn-realaudio-plugin" console="Clip1"
-					controls="ImageWindow,ControlPanel" height="515" width="700"
-					autostart="true" />
-			</object>
+			<object style="z-index: -999;" type='application/x-vlc-plugin' id='vlc' events='True' width="720" height="540" pluginspage="http://www.videolan.org" codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.2.2/npapi-vlc-2.2.2.tar.xz">
+                <param name='mrl' value='${filer.videoUrl}' />
+                <param name='volume' value='50' />
+                <param name="toolbar" value="true" />
+                <param name='loop' value='true' />
+                <embed type="application/x-vlc-plugin" pluginspage="http://www.videolan.org" name="vlc" />
+            </object>
+			
 			#{/if}
 			#{else}
 			<video id="my-video" class="video-js" controls preload="auto" width="100%"
-			  poster="m.png" data-setup="{}">
+			  poster="${filer.videoUrl + '.jpg'}" data-setup="{}">
 				<source src="${filer.videoUrl}" type="video/mp4" />
 		  </video>
 		  #{/else}

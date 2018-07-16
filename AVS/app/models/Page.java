@@ -3,6 +3,8 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
+import play.Logger;
+
 public class Page {
 	/**
 	 * 当前显示的页，从1开始
@@ -24,7 +26,7 @@ public class Page {
 	 */
 	public long getTotalPage()
 	{
-		long total = Math.round(Math.ceil(totalCount / pageSize));
+		long total = Math.round(Math.ceil(1d * totalCount / pageSize));
 		if(total == 0)
 		{
 			total++;
