@@ -74,9 +74,9 @@ public class Application extends Controller {
     	
     	Page page = new Page();
 		page.pageNo = pageNo;
-		page.totalCount = Filer.count("name like ? ", "%" + name + "%");
+		page.totalCount = Filer.count("name like ? or description like ? ", "%" + name + "%", "%" + name + "%");
 		
-		List<Filer> filers = Filer.find("name like ? order by lastModified desc", "%" + name + "%").fetch(page.pageNo, page.pageSize);
+		List<Filer> filers = Filer.find("name like ?  or description like ? order by lastModified desc", "%" + name + "%", "%" + name + "%").fetch(page.pageNo, page.pageSize);
     	
 		Integer tabIndex = 1;
 		
@@ -212,6 +212,15 @@ public class Application extends Controller {
     		filer.tags += "," + tag.name;
     	}
     	
+    	filer.save();
+    	
+    	detail(id);
+    }
+    
+    public static void updateDescription(Long id, String description)
+    {
+    	Filer filer = Filer.findById(id);
+    	filer.description = description;
     	filer.save();
     	
     	detail(id);

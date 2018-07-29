@@ -14,8 +14,11 @@
 		</ol>
 	</div>
 	<div class="row">
-		<div class="col-sm-8 col-xs-12 col-sm-offset-2" style="padding: 4px;" >
+		<div class="col-sm-12">
 			<h3><a href="${filer.videoUrl}">${filer.name}</a></h3>
+		</div>
+		<div class="col-sm-8 col-xs-12" style="padding: 4px;" >
+			
 			#{if filer.type == '1'}
 			<object style="z-index: -999;" type='application/x-vlc-plugin' id='vlc' events='True' width="720" height="540" pluginspage="http://www.videolan.org" codebase="http://downloads.videolan.org/pub/videolan/vlc-webplugins/2.2.2/npapi-vlc-2.2.2.tar.xz">
                 <param name='mrl' value='${filer.videoUrl}' />
@@ -35,6 +38,15 @@
 		  <div style="margin-top: 10px;">
 		  	#{selectTags tags:filer.tags?.split(','),id:filer.id,all:tags /}
 		  </div>
+		</div>
+		<div class="col-sm-4 col-xs-12">
+			<form action="@{Application.updateDescription()}">
+			<input type="hidden" name="id" value="${filer.id}" />
+			<p>简介:</p>
+			<textarea name="description" class="form-control" rows="6">${filer.description}</textarea>
+			<br/>
+			<p align="center"><input type="submit" class="btn btn-primary" /></p>
+			</form>
 		</div>
 	</div>
 </div>

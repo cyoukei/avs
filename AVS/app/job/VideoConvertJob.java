@@ -40,6 +40,7 @@ public class VideoConvertJob extends Job {
 	
 	private File parseFile(File f, List<String> extentions) throws UnsupportedEncodingException
 	{
+		Logger.info("parseFile:" + f.getAbsolutePath());
 		File ret = null;
 		if(!f.exists())
 			return ret;
@@ -51,6 +52,7 @@ public class VideoConvertJob extends Job {
 		for (File file : children) {
 			if(file.isDirectory())
 			{
+				
 				ret = parseFile(file, extentions);
 			}
 			
@@ -128,6 +130,10 @@ public class VideoConvertJob extends Job {
 
 	private String getExtention(File file)
 	{
+		if(file.isDirectory())
+		{
+			return "";
+		}
 		String fileName = file.getName();
         String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
         return suffix;

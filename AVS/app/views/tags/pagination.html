@@ -14,7 +14,7 @@ def pageURL = utils.URLUtil.removeParam(request.url, "pageNo");
       </a>
     </li>
     #{list _data?.shows, as:'item'}
-    <li><a href="${pageURL}${item}">${item}</a></li>
+    <li><a class="${item==_data.pageNo ? 'selected' : ''}" href="${pageURL}${item}">${item}</a></li>
     #{/list}
     <li>
       <a href="${pageURL}${_data?.totalPage}" aria-label="最后一页" title="${_data?.totalPage}">

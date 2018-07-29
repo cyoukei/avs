@@ -57,6 +57,9 @@ public class Filer extends BaseModel {
 	@Column(name="MEDIA_IDX")
 	public Integer mediaIdx;
 	
+	@Column(name="DESCRIPTION", length=1000)
+	public String description;
+	
 	@Transient
 	public String videoUrl;
 	

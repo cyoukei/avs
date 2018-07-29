@@ -31,8 +31,7 @@ public class BuildCacheJob extends Job {
 		Folder.em().createQuery("update Folder set onupdate = 0").executeUpdate();
 		Filer.em().createQuery("update Filer set onupdate = 0").executeUpdate();
 		
-		
-		parseFile(new File(base), null, Arrays.asList(extentions), "", "");
+		startParse(new File(base), Arrays.asList(extentions));
 		
 		Folder.delete("from Folder where onupdate = 0");
 		Filer.delete("from Filer where onupdate = 0");
@@ -40,9 +39,23 @@ public class BuildCacheJob extends Job {
 		Logger.info(">>>BuildCacheJob Completed.");
 	}
 	
+	private void startParse(File f, List extentions) throws UnsupportedEncodingException
+	{
+		File[] children = f.listFiles();
+		if(children == null)
+			return;
+		
+		for (File file : children) {
+			if(file.isDirectory())
+			{
+				parseFile(file, null, extentions, "", "");
+			}
+		}
+	}
+	
 	private void parseFile(File f, Long parentId, List<String> extentions, String uri, String path) throws UnsupportedEncodingException
 	{
-		Logger.info(">>>parseFile:" + path + "/" + f.getName());
+		Logger.info(">>>parseFile:" + path + "::" + f.getName());
 		if(!f.exists())
 			return;
 		
@@ -114,7 +127,7 @@ public class BuildCacheJob extends Job {
 		
 		Logger.debug(">>>Parsing " + file.getName());
 		
-		ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(ffmpeg, "-i", file.getName(), "-ss", "00:01:26", 
+		ProcessBuilder processBuilder = new ProcessBuilder(Arrays.asList(ffmpeg, "-i", file.getName(), "-ss", "00:00:32", 
 				"-y", "-t", "1", "-f", "image2", "-r", "1",  "-vf", "scale=320:-2", out));
 		processBuilder.directory(file.getParentFile());
 		processBuilder.redirectErrorStream(true);
