@@ -18,6 +18,9 @@ $(function(){
 			<li role="presentation" class="${tabIndex == 0 ? 'active' : ''}"><a href="@{Application.folder}">文件夹</a></li>
 			<li role="presentation" class="${tabIndex == 1 ? 'active' : ''}"><a href="@{Application.date}">日期</a></li>
 			<li role="presentation" class="disabled">标签:</li>
+			<li role="presentation" class="btn-xs ${selectTagId == -1 ? 'active' : ''}">
+				<a style="padding: 2px;" href="@{Application.tag('blank')}"><i>无标签</i></a>
+			</li>
 			#{list tags , as:'c'}
 			<li role="presentation" class="btn-xs ${selectTagId == c.id ? 'active' : ''}">
 				<a style="padding: 2px;" href="@{Application.tag(c.name)}">${c.name}</a>

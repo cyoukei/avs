@@ -94,13 +94,27 @@ public class Application extends Controller {
     	Page page = new Page();
 		page.pageNo = pageNo;
 		
+		Long selectTagId = -1l;
+		List<Filer> filers = null;
 		
-		page.totalCount = Filer.count("tags like ?", "%" + name + "%");
+		if("blank".equals(name))
+		{
+			page.totalCount = Filer.count("tags is null or tags = ''");
+			
+			filers = Filer.find("tags is null or tags = '' order by lastModified desc").fetch(page.pageNo, page.pageSize);
+	    	
+		}else
+		{
+			page.totalCount = Filer.count("tags like ?", "%" + name + "%");
+			
+			filers = Filer.find("tags like ? order by lastModified desc", "%" + name + "%").fetch(page.pageNo, page.pageSize);
+	    	
+			Tag selected = Tag.find("name = ?", name).first();
+			selectTagId = selected.id;
+		}
 		
-		List<Filer> filers = Filer.find("tags like ? order by lastModified desc", "%" + name + "%").fetch(page.pageNo, page.pageSize);
-    	
-		Tag selected = Tag.find("name = ?", name).first();
-		Long selectTagId = selected.id;
+		
+		
 		
     	render(filers, page, selectTagId);
     }
@@ -160,57 +174,43 @@ public class Application extends Controller {
     	renderText("ok");
     }
     
-    public static void addTag(Long id, String tagRadios, String newTags)
+    public static void addTag(Long id, List<String> tagRadios, String newTags)
     {
-    	
-    	Tag tag;
-    	if("custom".equals(tagRadios))
+    	List<String> tags = new ArrayList<String>();
+    	if(tagRadios != null)
     	{
-    		if(StringUtils.isBlank(newTags))
-    		{
-    			detail(id);
-    			return;
+    		for (String t : tagRadios) {
+    			if(StringUtils.isBlank(t))
+    			{
+    				continue;
+    			}
+    			
+    			if("custom".equals(t))
+    	    	{
+    				if(!StringUtils.isBlank(newTags))
+    	    		{
+    					newTags = newTags.trim();
+    		    		
+    					Tag tag = Tag.find("name = ?", newTags).first();
+    		    		if(tag == null)
+    		    		{
+    		    			tag = new Tag();
+    		    			tag.name = newTags;
+    		    			tag.save();
+    		    		}
+    		    		
+    					tags.add(newTags);
+    	    		}
+    	    	}else
+    	    	{
+    	    		tags.add(t);
+    	    	}
     		}
-    		
-    		newTags = newTags.trim();
-    		
-    		tag = Tag.find("name = ?", newTags).first();
-    		if(tag == null)
-    		{
-    			tag = new Tag();
-    			tag.name = newTags;
-    			tag.save();
-    		}
-    	}else
-    	{
-    		tag = Tag.findById(Long.valueOf(tagRadios));
     	}
-    	
-    	if(tag == null)
-		{
-			detail(id);
-			return;
-		}
     	
     	
     	Filer filer = Filer.findById(id);
-    	String tagStr = filer.tags;
-    	if(StringUtils.isBlank(tagStr))
-    	{
-    		filer.tags = tag.name;
-    	}else
-    	{
-    		String[] tags = filer.tags.split(",");
-    		for (String string : tags) {
-				if(tag.name.equals(string))
-				{
-					detail(id);
-					return;
-				}
-			}
-    		
-    		filer.tags += "," + tag.name;
-    	}
+    	filer.tags = StringUtils.join(tags, ",");
     	
     	filer.save();
     	

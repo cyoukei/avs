@@ -18,7 +18,7 @@ import play.Play;
 import play.jobs.Every;
 import play.jobs.Job;
 
-//@Every("10s")
+@Every("10s")
 public class VideoConvertJob extends Job {
 	String base = Play.configuration.getProperty("video.location");
 	String[] extentions = Play.configuration.getProperty("video.unused.extentions").split(",");
@@ -40,7 +40,7 @@ public class VideoConvertJob extends Job {
 	
 	private File parseFile(File f, List<String> extentions) throws UnsupportedEncodingException
 	{
-		Logger.info("parseFile:" + f.getAbsolutePath());
+//		Logger.info("parseFile:" + f.getAbsolutePath());
 		File ret = null;
 		if(!f.exists())
 			return ret;

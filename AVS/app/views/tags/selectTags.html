@@ -17,7 +17,9 @@ function removeTag(id, tag)
 {
 	
 	console.log(">>>" + id + "." + tag);
-	$.get('@{Application.removeTag()}' + '?id=' + id + '&tag=' + tag, function(data){});
+	$.get('@{Application.removeTag()}' + '?id=' + id + '&tag=' + tag, function(data){
+		window.location.reload();
+	});
 }
 </script>
 #{/append}
@@ -42,7 +44,7 @@ function removeTag(id, tag)
 			<div>
 				<div class="radio">
 				  <label>
-				    <input type="radio" name="tagRadios" value="${c.id}">
+				    <input type="checkbox" name="tagRadios" value="${c.name}" ${(_tags.indexOf(c.name) != -1) ? 'checked' : ''}>
 				   ${c.name}
 				  </label>
 				</div>
@@ -54,7 +56,7 @@ function removeTag(id, tag)
 			<div class="col-sm-12">
 				<div class="radio">
 				  <label>
-				    <input type="radio" name="tagRadios" value="custom">
+				    <input type="checkbox" name="tagRadios" value="custom">
 				    <input type="text" name="newTags" placeholder="自定义" />
 				  </label>
 				</div>
