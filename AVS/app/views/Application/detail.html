@@ -7,7 +7,7 @@
 <div class="container">
 	<div class="row">
 		<ol class="breadcrumb">
-		  <li><a href="@{Application.folder()}">Home</a></li>
+		  <li><a href="/">Home</a></li>
 		  #{list parents, as:'item'}
 		  <li><a href="@{Application.folder(item.id)}">${item.name ?: 'Untitled'}</a></li>
 		  #{/list}
@@ -36,7 +36,7 @@
 		  </video>
 		  #{/else}
 		  <div style="margin-top: 10px;">
-		  	#{selectTags tags:filer.tags?.split(','),id:filer.id,all:tags /}
+		  	#{selectTags tags:filer.tags?.split(','),id:filer.id,all:tags,tagstr:filer.tags /}
 		  </div>
 		</div>
 		<div class="col-sm-4 col-xs-12">

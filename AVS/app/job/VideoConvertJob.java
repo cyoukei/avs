@@ -18,7 +18,7 @@ import play.Play;
 import play.jobs.Every;
 import play.jobs.Job;
 
-@Every("10s")
+//@Every("10s")
 public class VideoConvertJob extends Job {
 	String base = Play.configuration.getProperty("video.location");
 	String[] extentions = Play.configuration.getProperty("video.unused.extentions").split(",");

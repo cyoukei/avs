@@ -44,7 +44,7 @@ function removeTag(id, tag)
 			<div>
 				<div class="radio">
 				  <label>
-				    <input type="checkbox" name="tagRadios" value="${c.name}" ${(_tags.indexOf(c.name) != -1) ? 'checked' : ''}>
+				    <input type="checkbox" name="tagRadios" value="${c.name}" ${(_tagstr?.indexOf(c.name) > -1) ? 'checked' : ''}>
 				   ${c.name}
 				  </label>
 				</div>
